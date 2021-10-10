@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="plugin" group="fields" method="upgrade">
+	<name>Plugin Field - File</name>
+	<author>itcs</author>
+	<creationDate>Sept 2021</creationDate>
+	<copyright>Copyright it-conserv.de 2021</copyright>
+	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
+	<authorEmail>info@it-conserv.de</authorEmail>
+	<authorUrl>www.it-conserv.de</authorUrl>
+	<version>1.0.1</version>
+	<description>PLG_FIELDS_FILE_XML_DESCRIPTION</description>
+	
+	<updateservers>
+		<server type="extension" priority="2" name="Plugin Field - File">
+			https://it-conserv.de/phocadownload/plugins/plg_field_file/plg_field_file-update.xml
+		</server>
+	</updateservers>
+	<changelogurl>https://it-conserv.de/phocadownload/plugins/plg_field_file/plg_field_file-changelog.xml</changelogurl>	
+	
+	<files>
+		<filename plugin="file">file.php</filename>
+		<filename>lizenz_gpl.txt</filename>
+		<folder>languages</folder>
+		<folder>params</folder>
+		<folder>tmpl</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">languages/en-GB/plg_fields_file.ini</language>
+		<language tag="en-GB">languages/en-GB/plg_fields_file.sys.ini</language>
+		<language tag="de-DE">languages/de-DE/plg_fields_file.ini</language>
+		<language tag="de-DE">languages/de-DE/plg_fields_file.sys.ini</language>		
+	</languages>
+	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="directory"
+					type="folderlist"
+					label="PLG_FIELDS_FILE_PARAMS_DIRECTORY_LABEL"
+					directory="images"
+					hide_none="true"
+					recursive="true"
+				/>
+				
+				<field
+					name="filename"
+					type="radio"
+					label="PLG_FIELDS_FILE_FILENAME_LABEL"
+					default="1"
+					layout="joomla.form.field.radio.switcher"
+					filter="boolean"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>				
+
+				<field
+					name="preview"
+					type="radio"
+					label="PLG_FIELDS_FILE_PREVIEW_LABEL"
+					default="1"
+					layout="joomla.form.field.radio.switcher"
+					filter="boolean"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field
+					name="download"
+					type="radio"
+					label="PLG_FIELDS_FILE_DOWNLOAD_LABEL"
+					default="1"
+					layout="joomla.form.field.radio.switcher"
+					filter="boolean"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field
+					name="rawvalue"
+					type="radio"
+					label="PLG_FIELDS_FILE_RAW_LABEL"
+					default="0"
+					layout="joomla.form.field.radio.switcher"
+					filter="boolean"
+					>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>

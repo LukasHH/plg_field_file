@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="fieldparams">
+		<fieldset name="fieldparams">
+			<field
+				name="directory"
+				type="folderlist"
+				label="PLG_FIELDS_MEDIA_PARAMS_DIRECTORY_LABEL"
+				directory="images"
+				hide_none="true"
+				recursive="true"
+				validate="options"
+			/>
+
+			<field
+				name="filename"
+				type="radio"
+				label="PLG_FIELDS_FILE_FILENAME_LABEL"
+				default="1"
+				layout="joomla.form.field.radio.switcher"
+				filter="boolean"
+				>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field
+				name="preview"
+				type="radio"
+				label="PLG_FIELDS_FILE_PREVIEW_LABEL"
+				default="1"
+				layout="joomla.form.field.radio.switcher"
+				filter="boolean"
+				>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field
+				name="download"
+				type="radio"
+				label="PLG_FIELDS_FILE_DOWNLOAD_LABEL"
+				default="1"
+				layout="joomla.form.field.radio.switcher"
+				filter="boolean"
+				>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+			
+			<field
+				name="rawvalue"
+				type="radio"
+				label="PLG_FIELDS_FILE_RAW_LABEL"
+				default="0"
+				layout="joomla.form.field.radio.switcher"
+				filter="boolean"
+				>
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>			
+
+		</fieldset>
+	</fields>
+</form>
