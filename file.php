@@ -114,5 +114,106 @@ class PlgFieldsFile extends \Joomla\Component\Fields\Administrator\Plugin\Fields
 			return number_format($size / pow(1024, $pow), 1,  ",", ".") .' ' . $unit;
 		}
 	}
+
+	/**
+	 * Get randomizer
+	 *
+	 * @param   int  $length The total length of the return
+	 * @param   int  $typ The type of return
+	 * @param   int  $l The minimum length lowercase
+	 * @param   int  $u The minimum length uppercase
+	 * @param   int  $i The minimum length integer
+	 * @param   int  $s The minimum length special characters
+	 *
+	 * Typ 0 = only uppercase
+	 * Typ 1 = only lowercase
+	 * Typ 2 = upper+lower
+	 * Typ 3 = upper+integer
+	 * Typ 4 = lower+integer
+	 * Typ 5 = upper+lower+integer
+	 * Typ 6 = upper+lower+integer+special characters
+	 * Typ 7 = only integer
+	 * 
+	 * @return  string  Random code according to the specifications
+	 *
+	 * @since   4.0.0
+	 */	
+	function get_randomizer($length=8, $typ=5, $l=2,$u=2, $i=2, $s=0){
+
+			$l_chars = "abcdefghijklmnopqrstuvwxyz";
+			$u_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			$i_chars = "0123456789";
+			$s_chars = "[]-#+*$&()%!=?";
+			
+			switch ($typ) {
+				case 0:
+					// only uppercase
+					$l=0;
+					$i=0;
+					$s=0;
+					$n_chars = $u_chars;
+					break;
+				case 1:
+					// only lowercase
+					$u=0;
+					$i=0;
+					$s=0;
+					$n_chars = $l_chars;			
+					break;
+				case 2:
+					// upper+lower
+					$i=0;
+					$s=0;
+					$n_chars = $l_chars.$u_chars;			
+					break;
+				case 3:
+					// upper+integer
+					$l=0;
+					$s=0;
+					$n_chars = $u_chars.$i_chars;			
+					break;
+				case 4:
+					// lower+integer
+					$u=0;
+					$s=0;
+					$n_chars = $l_chars.$i_chars;				
+					break;
+				case 5:
+					// upper+lower+integer
+					$s=0;
+					$n_chars = $l_chars.$u_chars.$i_chars;			
+					break;
+				case 6:
+					// upper+lower+integer+special characters
+					$n_chars = $l_chars.$u_chars.$i_chars.$s_chars;
+					break;	
+				case 7:
+					// only integer
+					$l=0;
+					$u=0;
+					$s=0;			
+					$n_chars = $i_chars;
+					break;				
+			}
+				
+			$chars = '';
+			// create the characters with the minimum number
+			$res_l = ($l>0)?substr(str_shuffle($l_chars),0,$l):'';
+			$res_u = ($u>0)?substr(str_shuffle($u_chars),0,$u):'';
+			$res_i = ($i>0)?substr(str_shuffle($i_chars),0,$i):'';
+			$res_s = ($s>0)?substr(str_shuffle($s_chars),0,$s):'';		
+			$chars .= $res_l.$res_u.$res_i.$res_s;
+			
+			// create the remaining characters
+			if(strlen($chars) < $length){
+				$n = $length - strlen($chars);
+				$chars .= substr(str_shuffle($n_chars),0,$n);
+			}
+			
+			// shuffle the characters
+			$result = substr(str_shuffle($chars),0,$length);
+		
+			return $result;
+		}	
 	
 }

@@ -19,12 +19,6 @@ if ($field->value == '')
 	return;
 }
 
-/*
-echo '<pre style="white-space: pre !important;">';
-print_r($item);
-echo '</pre>';
-*/
-
 $value  = $field->rawvalue;
 
 if ($value)
@@ -35,9 +29,7 @@ if ($value)
 	$filename	= basename($filepath);
 	$mime		= MediaHelper::getMimeType($filepath);
 	$size		= $this->get_file_size($filepath);
-
-	mt_srand ((double)microtime()*1000000);
-	$id			= mt_rand(1,1000); //erzeuge Zufallszahl
+	$id			= $this->get_randomizer(8,4);
 
 	$html		= '';
 	$inline = '<object width="100%" height="500px" type="'.$mime.'" data="'.$value.'"></object>';
