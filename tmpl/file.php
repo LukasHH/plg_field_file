@@ -29,10 +29,37 @@ if ($value)
 	$filename	= basename($filepath);
 	$mime		= MediaHelper::getMimeType($filepath);
 	$size		= $this->get_file_size($filepath);
-	$id			= $this->get_randomizer(8,4);
+	$id			= rand(1,29999);
 
 	$html		= '';
-	$inline = '<object width="100%" height="500px" type="'.$mime.'" data="'.$value.'"></object>';
+	$matchcount = preg_match_all('/(audio|text|video|pdf)/m', $mime, $mime_match, PREG_SET_ORDER, 0);
+	$mime_typ = ($matchcount > 0) ? $mime_match[0][0] : $mime;
+
+	switch($mime_typ){
+		case 'text':
+			$inline ='<p>';		
+			ini_set('auto_detect_line_endings',TRUE);
+			$handle = fopen($value,'r');
+			while ( ($data = fgetcsv($handle) ) !== FALSE ) {
+				$inline .= htmlspecialchars($data[0]) . "<br />";
+			}
+			ini_set('auto_detect_line_endings',FALSE);		
+			fclose($handle);
+			$inline .='</p>';
+			break;
+		case 'video': 
+			$inline = '<video controls width="100%" type="'.$mime.'" src="'.$value.'"></video>';
+			break;
+		case 'audio': 
+			$inline = '<audio controls width="100%" height="100px" type="'.$mime.'" src="'.$value.'"></audio>';
+			break;
+		case 'pdf': 
+			$inline = '<object width="100%" style="height: 70vh" type="'.$mime.'" data="'.$value.'"></object>';
+			break;
+		default:
+			$inline = '<p class="text-center"><i style="font-size: 3rem;" class="fa fa-file-download"></i><br/>Not Preview</p>';
+	}
+
 	$modalId = 'fileModal_'.$id;
 	
 	
@@ -46,10 +73,8 @@ if ($value)
 	if( $fieldParams->get('preview') == '1')
 	{
 		HTMLHelper::_('bootstrap.modal', '.selector', []);
-		$title = $filename;
 		$modalId = 'fileModal_'.$id;
-		
-		
+				
 		$html  .= '
 			<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#'.$modalId.'"><span class="icon-search" aria-hidden="true"></span> '. Text::_('PREVIEW') .' </button>
 		';
@@ -59,7 +84,7 @@ if ($value)
 				<div class="modal-dialog modal-lg modal-fullscreen-lg-down">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 id="ModalLabel'.$id.'" class="modal-title">'.$title.'</h5>
+							<h5 id="ModalLabel'.$id.'" class="modal-title">'.$filename.'</h5>
 							<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
