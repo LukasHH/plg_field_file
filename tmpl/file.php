@@ -69,34 +69,35 @@ if ($value)
 		$html .='<span style="margin-right: 0.5rem;"><strong>'.$filename.' ('.$size.')'.'</strong></span>';
 	}
 	
-	// Modal - Preview
+	// Modal - Preview	
 	if( $fieldParams->get('preview') == '1')
 	{
-		HTMLHelper::_('bootstrap.modal', '.selector', []);
+		HTMLHelper::_('bootstrap.renderModal', '.selector', []);
 		$modalId = 'fileModal_'.$id;
 				
 		$html  .= '
-			<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#'.$modalId.'"><span class="icon-search" aria-hidden="true"></span> '. Text::_('PREVIEW') .' </button>
+			<button 
+				class="btn btn-primary btn-sm"
+				data-bs-toggle="modal" 
+				data-bs-target="#'.$modalId.'" 
+				data-bs-title="'.Text::_('PREVIEW').' '.$filename.'"
+				data-bs-action="showPreviewFile" 
+				onclick="return false;"
+			>
+			<span class="icon-search" aria-hidden="true"></span> '. Text::_('PREVIEW') .' 
+			</button>
 		';
-		
-		$html .='
-			<div id="'.$modalId.'" class="modal fade" tabindex="-1" aria-labelledby="ModalLabel'.$id.'" aria-hidden="true">
-				<div class="modal-dialog modal-lg modal-fullscreen-lg-down">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 id="ModalLabel'.$id.'" class="modal-title">'.$filename.'</h5>
-							<button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							'.$inline.'
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button" data-bs-dismiss="modal">'. Text::_('JCLOSE') .'</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		';
+
+		$html .= HTMLHelper::_(
+			'bootstrap.renderModal',
+			$modalId,
+			array(
+				'modal-dialog-scrollable' => true,
+				'title'  => Text::_('PREVIEW') .' <span class="lead">'.Text::sprintf('PLG_FIELDS_FILE_LABEL',$filename).'</span>',
+				'footer' => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>'
+			),
+				'<div id="modal-body">'.$inline.'</div>'
+		);
 	}
 	
 	//Download	
