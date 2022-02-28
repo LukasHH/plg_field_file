@@ -2,12 +2,12 @@
 <extension type="plugin" group="fields" method="upgrade">
 	<name>Plugin Field - File</name>
 	<author>itcs</author>
-	<creationDate>Sept 2021</creationDate>
+	<creationDate>Feb 2022</creationDate>
 	<copyright>Copyright it-conserv.de 2021</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>info@it-conserv.de</authorEmail>
 	<authorUrl>www.it-conserv.de</authorUrl>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<description>PLG_FIELDS_FILE_XML_DESCRIPTION</description>
 	
 	<updateservers>

@@ -54,7 +54,10 @@ if ($value)
 			$inline = '<audio controls width="100%" height="100px" type="'.$mime.'" src="'.$value.'"></audio>';
 			break;
 		case 'pdf': 
-			$inline = '<object width="100%" style="height: 70vh" type="'.$mime.'" data="'.$value.'"></object>';
+			$inline = '<object width="100%" style="height: 70vh" type="'.$mime.'" data="'.$value.'">
+            <embed src="'.$value.'" type="application/pdf" width="100%"></embed>
+            ' . Text::sprintf('PLG_FIELDS_FILE_PDF_VIEWER_MISSING', $value) . '
+            </object>';
 			break;
 		default:
 			$inline = '<p class="text-center"><i style="font-size: 3rem;" class="fa fa-file-download"></i><br/>Not Preview</p>';
